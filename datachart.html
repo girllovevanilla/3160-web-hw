@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>DATA CHART</title>
+<style type="text/css">
+  .chartBox{
+    width:400px;
+
+  }
+  
+  </style>
+<div class="chartBox">
+  <canvas id="myChart"></canvas>
+</div>
+
+<div class="chartBox">
+  <canvas id="barChart"></canvas>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const data={
+    labels: ["Apple", "Banana", "blueberry", "orange", "Watermelon"],
+      datasets: [{
+        label: "People",
+        backgroundColor: ["red", "yellow","blue","orange","green"],
+        data: [520,248,134,196,97]
+      }]};
+
+      const config = {
+        type: 'pie',
+    data,
+    options: {
+      title: {
+        display: true,
+        text: 'The favorite fruits'
+      }
+    }
+      };
+
+
+
+ 
+  const myChart = new Chart
+  (document.getElementById('myChart'),
+  config
+);
+const config2 = {
+        type: 'bar',
+    data,
+    options: {
+      title: {
+        display: true,
+        text: 'The favorite fruits'
+      }
+    }
+      };
+const barChart = new Chart
+  (document.getElementById('barChart'),
+  config2
+);
+
+
+</script>
+
+
+</head>
+<body>
+  
+    <p><a href="hangchenweb.html">Return to Main Page</a></p>
+</body>
+
+</html>

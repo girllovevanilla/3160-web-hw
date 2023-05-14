@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Converter</title>
+    <style>
+      /* Add some basic styling */
+      body {
+        background-image: url('hk.jpg'); /* Replace with your own background image */
+        background-size: cover;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin-top: 50px;
+      }
+      form {
+        margin-top: 30px;
+      }
+      label {
+        display: inline-block;
+        margin: 10px;
+      }
+      input[type="text"] {
+        width: 100px;
+        margin: 10px;
+        text-align: center;
+      }
+      #result {
+        font-size: 24px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weight Converter</h1>
+    <form>
+      <label>
+        <input type="radio" name="unit" value="kg" checked> Kilograms (kg)
+      </label>
+      <label>
+        <input type="radio" name="unit" value="lb"> Pounds (lb)
+      </label>
+      <br>
+      <label>
+        Enter weight:
+        <input type="text" id="weight">
+      </label>
+    </form>
+    <div id="result"></div>
+    <script>
+      // Add event listeners to the input fields
+      const weightInput = document.getElementById('weight');
+      weightInput.addEventListener('input', calculateResult);
+      const unitInputs = document.getElementsByName('unit');
+      for (let i = 0; i < unitInputs.length; i++) {
+        unitInputs[i].addEventListener('change', calculateResult);
+      }
+      // Calculate and display the result
+      function calculateResult() {
+        const weight = Number(weightInput.value);
+        if (isNaN(weight)) {
+          document.getElementById('result').innerHTML = 'Please enter a valid number.';
+          return;
+        }
+        const unit = document.querySelector('input[name="unit"]:checked').value;
+        let result;
+        if (unit === 'kg') {
+          result = weight * 2.20462;
+          document.getElementById('result').innerHTML = `${weight} kg = ${result.toFixed(2)} lb`;
+        } else {
+          result = weight / 2.20462;
+          document.getElementById('result').innerHTML = `${weight} lb = ${result.toFixed(2)} kg`;
+        }
+      }
+      // Load the saved weight from localStorage, if available
+      const savedWeight = localStorage.getItem('weight');
+      if (savedWeight) {
+        weightInput.value = savedWeight;
+        calculateResult();
+      }
+      // Save the weight to localStorage when the input field changes
+      weightInput.addEventListener('change', function() {
+        localStorage.setItem('weight', weightInput.value);
+      });
+      // Reset the form and clear localStorage
+      const resetButton = document.createElement('button');
+      resetButton.innerHTML = 'Reset';
+      resetButton.addEventListener('click', function() {
+        weightInput.value = '';
+        calculateResult();
+        localStorage.removeItem('weight');
+      });
+      document.body.appendChild(resetButton);
+    </script>
+    <p><a href="hangchenweb.html">Return to Main Page</a></p>
+  </body>
+</html>
